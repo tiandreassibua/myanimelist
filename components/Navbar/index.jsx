@@ -8,10 +8,11 @@ export default function Navbar() {
             <nav className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
                 <Link
                     href="/"
-                    className="text-2xl md:text-3xl font-bold text-slate-800 text-center md:text-left"
+                    className="text-2xl md:text-3xl font-bold text-slate-800 text-center"
                 >
                     AnimeKu
                 </Link>
+
                 <div>
                     <InputSearch />
                 </div>

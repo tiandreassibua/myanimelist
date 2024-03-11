@@ -9,7 +9,7 @@ export default async function ActionButton() {
     const actionLabel = user ? "SIGN OUT" : "SIGN IN";
     const actionUrl = user ? "/api/auth/signout" : "/api/auth/signin";
     return (
-        <div className="flex items-center justify-between gap-5">
+        <div className={`flex items-center gap-5 ${user ? "justify-between" : "justify-end"}`}>
             {user && (
                 <Link
                     href="/dashboard"
@@ -18,7 +18,7 @@ export default async function ActionButton() {
                     Dashboard
                 </Link>
             )}
-            <Button asChild>
+            <Button className="bg-neutral-800" asChild>
                 <Link href={actionUrl}>{actionLabel}</Link>
             </Button>
         </div>
