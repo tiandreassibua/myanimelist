@@ -8,7 +8,7 @@ export default async function Home() {
     const upcomingAnime = await getAnimeResponse("top/anime","limit=10&filter=upcoming");
     
     let recommendedAnime = await getNestedAnimeResponse("recommendations/anime","entry");
-    recommendedAnime = recommendedAnime.sort(() => Math.random() - 0.5).slice(0, 10);
+    recommendedAnime = recommendedAnime?.sort(() => Math.random() - 0.5).slice(0, 10);
     
     return (
         <>

@@ -1,13 +1,10 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
-import { scrollTop } from "@/lib/utils";
 
 export default function Pagination({ page, setPage, lastPage }) {
     const handleNextPage = () => {
         if (page < lastPage) {
             setPage((prev) => prev + 1);
-            scrollTop();
         }
 
         return;
@@ -15,7 +12,6 @@ export default function Pagination({ page, setPage, lastPage }) {
     const handlePrevPage = () => {
         if (page > 1) {
             setPage((prev) => prev - 1);
-            scrollTop();
         }
 
         return;
