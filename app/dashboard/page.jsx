@@ -19,6 +19,7 @@ export default async function Page() {
                     width={200}
                     height={200}
                     className="rounded-full shadow-md shadow-neutral-900"
+                    priority
                 />
                 <div className="mt-8 space-x-4">
                     <Button

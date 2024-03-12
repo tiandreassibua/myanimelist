@@ -2,6 +2,7 @@ import { Gabarito } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import ButtonScroll from "@/components/Shared/button-scroll";
+import { Toaster } from "@/components/ui/toaster";
 
 const gabarito = Gabarito({
     subsets: ["latin"],
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
                 <div className="container mx-auto my-10 relative">
                     {children}
                     <ButtonScroll />
+                    <Toaster />
                 </div>
             </body>
         </html>

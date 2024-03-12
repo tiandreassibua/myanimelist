@@ -16,6 +16,9 @@ import {
 } from "@/components/ui/carousel";
 
 import VideoPlayer from "@/components/Shared/video-player";
+import CollectionButton from "@/components/AnimeList/collection-button";
+import { authUserSession } from "@/lib/auth";
+import { db } from "@/lib/prisma";
 
 export const metadata = {};
 
@@ -26,6 +29,17 @@ export default async function Page({ params: { id } }) {
     metadata.title = `MyAnimeList | ${anime.title}`;
 
     let animePics = await getAnimeResponse(`anime/${id}/pictures`);
+
+    const user = await authUserSession();
+
+    const collection = await db.collection.findFirst({
+        where: {
+            user_email: user?.email,
+            anime_mal_id: id,
+        },
+    });
+
+    console.log(collection);
 
     return (
         <>
@@ -54,24 +68,11 @@ export default async function Page({ params: { id } }) {
                                         {anime.title}{" "}
                                         {anime.year && `(${anime.year})`}
                                     </span>
-                                    <Button
-                                        variant="secondary"
-                                        size="icon"
-                                        className="rounded-full ml-5"
-                                        title="Tambahkan ke favorit"
-                                    >
-                                        {true ? (
-                                            <IoBookmark
-                                                size={22}
-                                                className="text-neutral-900"
-                                            />
-                                        ) : (
-                                            <IoBookmarkOutline
-                                                size={22}
-                                                className="text-neutral-900"
-                                            />
-                                        )}
-                                    </Button>
+                                    <CollectionButton
+                                        anime_mal_id={id}
+                                        user_email={user?.email}
+                                        exist={collection ? true : false}
+                                    />
                                 </h1>
                                 <p className="mt-1 text-neutral-500">
                                     {anime.rating}
