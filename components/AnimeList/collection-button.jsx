@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
-export default function CollectionButton({ anime_mal_id, user_email, exist }) {
+export default function CollectionButton({
+    anime_mal_id,
+    user_email,
+    exist,
+    anime_image,
+    anime_title,
+}) {
     const { toast } = useToast();
     const router = useRouter();
 
@@ -14,7 +20,12 @@ export default function CollectionButton({ anime_mal_id, user_email, exist }) {
 
         const response = await fetch("/api/v1/collection", {
             method: "POST",
-            body: JSON.stringify({ anime_mal_id, user_email }),
+            body: JSON.stringify({
+                anime_mal_id,
+                user_email,
+                anime_image,
+                anime_title,
+            }),
         });
 
         const collection = await response.json();

@@ -1,11 +1,9 @@
 import Image from "next/image";
 import { FaFilm, FaHashtag, FaStar, FaUsers } from "react-icons/fa";
-import { IoBookmark, IoBookmarkOutline } from "react-icons/io5";
 
 import { getAnimeResponse } from "@/actions";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 import {
     Carousel,
@@ -19,6 +17,7 @@ import VideoPlayer from "@/components/Shared/video-player";
 import CollectionButton from "@/components/AnimeList/collection-button";
 import { authUserSession } from "@/lib/auth";
 import { db } from "@/lib/prisma";
+import { CommentInput, Comments } from "@/components/AnimeList/comment";
 
 export const metadata = {};
 
@@ -39,7 +38,14 @@ export default async function Page({ params: { id } }) {
         },
     });
 
-    console.log(collection);
+    const comments = await db.comment.findMany({
+        where: {
+            anime_mal_id: id,
+        },
+        orderBy: {
+            createdAt: "desc",
+        },
+    });
 
     return (
         <>
@@ -71,6 +77,10 @@ export default async function Page({ params: { id } }) {
                                     <CollectionButton
                                         anime_mal_id={id}
                                         user_email={user?.email}
+                                        anime_image={
+                                            anime.images.webp.image_url
+                                        }
+                                        anime_title={anime.title}
                                         exist={collection ? true : false}
                                     />
                                 </h1>
@@ -134,7 +144,7 @@ export default async function Page({ params: { id } }) {
                                     {anime.synopsis}
                                 </p>
                             </div>
-                            <div className="mt-5 pb-20">
+                            <div className="mt-5">
                                 <h2 className="text-xl md:text-3xl font-semibold text-white">
                                     Pictures
                                 </h2>
@@ -172,6 +182,19 @@ export default async function Page({ params: { id } }) {
                                         <CarouselNext />
                                     </Carousel>
                                 </div>
+                            </div>
+                            <div className="mt-10 max-w-xl">
+                                <h2 className="mb-5 text-xl md:text-3xl font-semibold text-white">
+                                    Komentar
+                                </h2>
+                                {user && (
+                                    <CommentInput
+                                        anime_mal_id={id}
+                                        anime_title={anime.title}
+                                        user={user}
+                                    />
+                                )}
+                                <Comments comments={comments} />
                             </div>
                         </div>
                     </div>
