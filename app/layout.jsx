@@ -10,8 +10,10 @@ const gabarito = Gabarito({
 });
 
 export const metadata = {
-    title: "AnimeKu"
-}
+    title: "AnimeKu",
+};
+
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function RootLayout({ children }) {
     return (
@@ -20,6 +22,7 @@ export default function RootLayout({ children }) {
                 <Navbar />
                 <div className="container mx-auto my-10 relative">
                     {children}
+                    <SpeedInsights />
                     <ButtonScroll />
                     <Toaster />
                 </div>
